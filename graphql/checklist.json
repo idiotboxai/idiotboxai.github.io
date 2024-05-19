@@ -1,0 +1,305 @@
+{
+  "test_cases": [
+    {
+      "name": "GraphQL API endpoint",
+      "description": "Common endpoint for GraphQL APIs",
+      "payload": {
+        "query": [
+        "/graphql",
+        "/api/graphql",
+        "/api/v1/graphql",
+        "/graphql-server",
+        "/graphql-service",
+        "/graphql-api",
+        "/graphql-endpoint",
+        "/graphql-console",
+        "/graphql-explorer",
+        "/graphql-playground",
+        "/graphql-dev",
+        "/graphqld",
+        "/gql",
+        "/graphql/schema",
+        "/graphql/query",
+        "/graphql/mutation",
+        "/graphql/subscriptions"
+      ]
+      }
+    },
+    {
+      "name": "GraphQL API endpoint - Extended List",
+      "description": "Possible endpoint for GraphQL APIs",
+      "payload": {
+        "query": "https://raw.githubusercontent.com/anmolksachan/anmolksachan.github.io/main/graphql/graphql-common.txt"
+      }
+    },
+    {
+      "name": "Introspection query",
+      "description": "Verify that the introspection query is disabled",
+      "payload": {
+        "query": "{__schema{types{name}}}"
+      }
+    },
+    {
+      "name": "SQL Injection",
+      "description": "Attempt to perform SQL injection",
+      "payload": {
+        "query": "query{users(where:{name:{_eq:\"' or 1=1 --\"}}){id,name}}"
+      }
+    },
+    {
+      "name": "Cross-site scripting (XSS)",
+      "description": "Attempt to perform a cross-site scripting attack",
+      "payload": {
+        "query": "query{users(where:{name:{_contains:\"<script>alert(1)</script>\"}}){id,name}}"
+      }
+    },
+    {
+      "name": "Path Traversal",
+      "description": "Attempt to perform path traversal",
+      "payload": {
+        "query": "query{file(path:\"../etc/passwd\"){name}}"
+      }
+    },
+    {
+      "name": "Command Injection",
+      "description": "Attempt to perform command injection",
+      "payload": {
+        "query": "query{runCommand(command:\"ls -la\")}"
+      }
+    },
+    {
+      "name": "Authentication Bypass",
+      "description": "Attempt to bypass authentication",
+      "payload": {
+        "query": "query{user(id:\"1\"){id,name,email}}"
+      }
+    },
+    {
+      "name": "Authorization Bypass",
+      "description": "Attempt to bypass authorization",
+      "payload": {
+        "query": "query{secretData}"
+      }
+    },
+    {
+      "name": "SQL Injection - UNION attack",
+      "description": "Attempt to perform a SQL injection using UNION",
+      "payload": {
+        "query": "query{users(where:{name:{_eq:\"' UNION SELECT * FROM users WHERE '1'='1\"}}){id,name}}"
+      }
+    },
+    {
+      "name": "XSS - Script tag bypass",
+      "description": "Attempt to perform a cross-site scripting attack using script tag bypass",
+      "payload": {
+        "query": "query{users(where:{name:{_neq:\"<script>alert(1)</script>\"}, name:{_contains:\"<script>alert(1)</script>\"}}){id,name}}"
+      }
+    },
+    {
+      "name": "Path Traversal - Absolute path",
+      "description": "Attempt to perform path traversal using an absolute path",
+      "payload": {
+        "query": "query{file(path:\"/etc/passwd\"){name}}"
+      }
+    },
+    {
+      "name": "Command Injection - Arbitrary command execution",
+      "description": "Attempt to execute an arbitrary command using command injection",
+      "payload": {
+        "query": "query{runCommand(command:\"cat /etc/passwd\")}"
+      }
+    },
+    {
+      "name": "Authentication Bypass - SQL Injection",
+      "description": "Attempt to bypass authentication using SQL Injection",
+      "payload": {
+        "query": "query{user(where:{email:{_eq:\"admin'--\"}, password:{_eq:\"' OR '1'='1\"}}){id,name,email}}"
+      }
+    },
+    {
+      "name": "Authorization Bypass - Forced browsing",
+      "description": "Attempt to bypass authorization using forced browsing",
+      "payload": {
+        "query": "query{file(path:\"/secret.txt\"){name, content}}"
+      }
+    },
+        {
+      "name": "No query",
+      "description": "Attempt to send a request without a query parameter",
+      "payload": {
+        "variables": {}
+      }
+    },
+    {
+      "name": "Empty query",
+      "description": "Attempt to send an empty query parameter",
+      "payload": {
+        "query": "",
+        "variables": {}
+      }
+    },
+    {
+      "name": "Invalid query parameter",
+      "description": "Attempt to send an invalid query parameter",
+      "payload": {
+        "query": "invalidquery",
+        "variables": {}
+      }
+    },
+    {
+      "name": "Invalid variable type",
+      "description": "Attempt to send a variable with an invalid type",
+      "payload": {
+        "query": "query{users(where:{name:{_eq:$name}}){id,name}}",
+        "variables": {
+          "name": {"invalid": "type"}
+        }
+      }
+    },
+    {
+      "name": "Missing required variable",
+      "description": "Attempt to send a request without a required variable",
+      "payload": {
+        "query": "query{user(where:{email:{_eq:$email}}){id,name,email}}",
+        "variables": {
+          "name": "testuser"
+        }
+      }
+    },
+    {
+      "name": "Numeric SQL injection",
+      "description": "Attempt to perform numeric SQL injection",
+      "payload": {
+        "query": "query{users(where:{id:{_eq:\"1' or 1=1 --\"}}){id,name}}"
+      }
+    },
+    {
+      "name": "Blind SQL injection",
+      "description": "Attempt to perform blind SQL injection",
+      "payload": {
+        "query": "query{users(where:{name:{_eq:\"admin\"},password:{_like:\"%$password%\"}}){id,name}}"
+      }
+    },
+    {
+      "name": "Server-side request forgery (SSRF)",
+      "description": "Attempt to perform server-side request forgery",
+      "payload": {
+        "query": "query{fetchUrl(url:\"https://example.com\")}"
+      }
+    },
+    {
+      "name": "Denial of Service (DoS)",
+      "description": "Attempt to perform a DoS attack",
+      "payload": {
+        "query": "query{users{...largeFragment}}fragment largeFragment on User{name}}"
+      }
+    },
+    {
+      "name": "GraphQL injection",
+      "description": "Attempt to perform GraphQL injection",
+      "payload": {
+        "query": "mutation{addUser(input:{name:\"testuser\",email:\"testuser@example.com\"}){user{id,name,email}}}"
+      }
+    },
+    {
+      "name": "Information disclosure",
+      "description": "Attempt to access sensitive information",
+      "payload": {
+        "query": "query{user(id:\"2\"){id,name,email,password}}"
+      }
+    },
+    {
+      "name": "Cross-site request forgery (CSRF)",
+      "description": "Attempt to perform cross-site request forgery",
+      "payload": {
+        "query": "mutation{updateUser(id:\"1\",input:{name:\"hacked\"}){user{id,name,email}}}"
+      }
+    },
+    {
+      "name": "Mutation without authentication",
+      "description": "Attempt to execute a mutation without authentication",
+      "payload": {
+        "query": "mutation{createPost(title:\"New Post\", content:\"Content of the post\"){id,title,content}}"
+      }
+    },
+    {
+      "name": "Mutation with insufficient permissions",
+      "description": "Attempt to execute a mutation with insufficient permissions",
+      "payload": {
+        "query": "mutation{deletePost(id:\"1\"){id,title,content}}"
+      }
+    },
+    {
+      "name": "Query with invalid argument",
+      "description": "Attempt to execute a query with an invalid argument",
+      "payload": {
+        "query": "query{post(id:\"not_an_integer\"){id,title,content}}"
+      }
+    },
+    {
+      "name": "Query with too many results",
+      "description": "Attempt to execute a query with too many results",
+      "payload": {
+        "query": "query{posts{title}}"
+      }
+    },
+    {
+      "name": "Query with too few results",
+      "description": "Attempt to execute a query with too few results",
+      "payload": {
+        "query": "query{post(id:\"999\"){title}}"
+      }
+    },
+    {
+      "name": "Malformed query",
+      "description": "Attempt to execute a malformed query",
+      "payload": {
+        "query": "query{post(id:\"1\"){title, content}}"
+      }
+    },
+    {
+      "name": "Subquery depth limit exceeded",
+      "description": "Attempt to execute a query with too many nested subqueries",
+      "payload": {
+        "query": "query{post(id:\"1\"){title, comments{content, user{posts{content}}}}}"
+      }
+    },
+    {
+      "name": "Query with long execution time",
+      "description": "Attempt to execute a query that takes a long time to complete",
+      "payload": {
+        "query": "query{longRunningQuery}"
+      }
+    },
+    {
+      "name": "Vulnerability scanner - GraphCrawler",
+      "description": "Toolkit that can be used to grab schemas and search for sensative data, test authorization, brute force schemas, and find paths to a given type.",
+      "payload": {
+        "query": "https://github.com/gsmith257-cyber/GraphCrawler"
+      }
+    },
+    {
+      "name": "Vulnerability scanner - GraphQLmap",
+      "description": "Can be used as a CLI client also to automate attacks.",
+      "payload": {
+        "query": "https://github.com/swisskyrepo/GraphQLmap"
+      }
+    },
+    {
+      "name": "Vulnerability scanner - graphql-path-enum",
+      "description": "Tool that lists the different ways of reaching a given type in a GraphQL schema.",
+      "payload": {
+        "query": "https://gitlab.com/dee-see/graphql-path-enum"
+      }
+    },
+    {
+      "name": "GraphQLmap",
+      "description": "Can be used as a CLI client also to automate attacks",
+      "payload": {
+        "query" : [
+        "https://github.com/swisskyrepo/GraphQLmap"
+      ]
+     }
+    }
+  ]
+}
