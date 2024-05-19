@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GraphQL Test Cases</title>
+  <link rel="icon" type="image/gif" href="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGNhNTcwZmFlYzFhMzU0OGRhODllMzhkM2Y5OGZlMWZiYmFlODE1YSZjdD1n/nvb74G5HEcQhoah9Hv/giphy.gif">
+  <meta name="description" content="This page contains GraphQL test cases.">
+  <meta name="description" content="This page contains GraphQL test cases. These test cases cover various scenarios and can be used to validate the functionality of your GraphQL API.">
+  <meta name="description" content="Explore our GraphQL test cases and validate the functionality of your API. Our comprehensive test suite covers various scenarios and can help you ensure that your API is working as expected.">
+  <meta name="description" content="GraphQL test cases for testing your API's functionality. Our test suite covers a wide range of scenarios, from simple queries to complex mutations, and can be used to identify any issues or bugs in your API.">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      width: 80%;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px #888888;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    .description {
+      font-style: italic;
+      color: #888;
+    }
+
+    .payload {
+      font-family: monospace;
+      color: #333;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0px 0px 5px #ccc;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+    }
+
+    .checkbox {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div style="position: fixed; right: 20px; top: 50%; transform: translateY(-50%);">
+    <a href="https://twitter.com/fr13nd0x7f" target="_blank"><img src="https://abs.twimg.com/responsive-web/client-web/icon-svg.168b89da.svg" alt="Twitter" style="display: block; width: 30px; margin-bottom: 5px;"></a>
+    <a href="https://www.linkedin.com/in/anmolksachan/" target="_blank"><img src="https://www.treasurers.org/ACTmedia/linkedin-icon-1-logo-png-transparent.png" alt="LinkedIn" style="display: block; width: 30px; margin-bottom: 5px;"></a>
+    <a href="https://github.com/anmolksachan/" target="_blank"><img src="https://github.com/fluidicon.png" alt="GitHub" style="display: block; width: 30px; margin-bottom: 5px;"></a>
+  </div>
+  <h1>GraphQL Test Cases</h1>
+  <table>
+    <tr>
+      <th class="checkbox"><input type="checkbox" id="check-all"></th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Payload</th>
+    </tr>
+    <script>
+      fetch('checklist.json')
+        .then(response => response.json())
+        .then(data => {
+          for (var i = 0; i < data.test_cases.length; i++) {
+            var testCase = data.test_cases[i];
+            var row = document.createElement("tr");
+            var checkboxCell = document.createElement("td");
+            var nameCell = document.createElement("td");
+            var descriptionCell = document.createElement("td");
+            var payloadCell = document.createElement("td");
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "test-case";
+            checkbox.value = testCase.name;
+            checkboxCell.appendChild(checkbox);
+
+            nameCell.innerHTML = testCase.name;
+            descriptionCell.innerHTML = "<div class='description'>" + testCase.description + "</div>";
+            payloadCell.innerHTML = "<div class='payload'>" + JSON.stringify(testCase.payload, null, 4) + "</div>";
+
+            row.appendChild(checkboxCell);
+            row.appendChild(nameCell);
+            row.appendChild(descriptionCell);
+            row.appendChild(payloadCell);
+
+            document.querySelector("table").appendChild(row);
+          }
+        })
+        .catch(error => console.error(error));
+    </script>
+  </table> 
+  <footer>
+  <div style="text-align:center; margin-top: 30px;">
+    <p><u>Developed with ❤️ by Anmol K Sachan | Follow me <a href="https://twitter.com/fr13nd0x7f/" target="_blank">@FR13ND0x7f</a> &copy; 2023</u></p>
+  </div>
+  </footer> 
+</body>
+</html>
