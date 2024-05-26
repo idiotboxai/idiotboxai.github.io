@@ -4,54 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Injection Cheatsheet</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+   <style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1,
+    h2 {
+        color: rgb(184, 233, 90);
+        text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px, rgba(86, 111, 15, 0.1) 0px 0px 5px, rgba(86, 111, 15, 0.1) 0px 0px 10px;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background: #f4f4f4;
+    }
+
+    tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    code {
+        background-color: #f1f1f1;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
         }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+        to {
+            opacity: 1;
         }
-        h1, h2 {
-            color: rgb(184, 233, 90);
-            text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px, rgba(86, 111, 15, 0.1) 0px 0px 5px, rgba(86, 111, 15, 0.1) 0px 0px 10px;
-            animation: fadeIn 2s ease-in-out;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background: #f4f4f4;
-        }
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    }
+</style>
+
 </head>
 
  <body>
