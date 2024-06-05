@@ -1,22 +1,67 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html lang="en">
 <head>
-	<meta name="google-site-verification" content="FsGx9vk-ixgRovG91ea1t0OVDka8YVG-41fRXiVTDAQ" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Portfolio</title>
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="icon" href="https://raw.githubusercontent.com/idiotboxai/idiotboxai.github.io/main/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scratch Effect</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .scratch-effect {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      overflow: hidden;
+    }
+
+    .scratch {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(135deg, transparent 5px, #0f0 5px, #0f0 10px, transparent 10px);
+      background-size: 20px 20px;
+      animation: scratch 5s linear infinite;
+    }
+
+    @keyframes scratch {
+      0% {
+        transform: translateX(-50%) translateY(-50%);
+      }
+      100% {
+        transform: translateX(50%) translateY(50%);
+      }
+    }
+
+    .blood {
+      position: absolute;
+      width: 10px; /* Adjust the size of the blood drops as needed */
+      height: 10px;
+      background-color: red;
+      animation: blood-drop 2s linear infinite;
+    }
+
+    @keyframes blood-drop {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh);
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <h1> Coming Sooon </h1>
+  <div class="scratch-effect">
+    <div class="scratch"></div>
+    <div class="blood"></div>
+  </div>
 </body>
-
 </html>
