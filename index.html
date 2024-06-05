@@ -3,65 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scratch Effect</title>
+  <title>Extension Dashboard</title>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
+    body {
+      background-color: #000;
+      color: #0f0; /* Hacker green */
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center; /* Center align content */
     }
 
-    .scratch-effect {
-      position: relative;
+    h1, h2 {
+      color: #0f0; /* Hacker green */
+    }
+
+    #site-table {
       width: 100%;
-      height: 100%;
-      background-color: black;
-      overflow: hidden;
+      border-collapse: collapse;
+      margin-top: 20px;
     }
 
-    .scratch {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(135deg, transparent 5px, #0f0 5px, #0f0 10px, transparent 10px);
-      background-size: 20px 20px;
-      animation: scratch 5s linear infinite;
+    #site-table th, #site-table td {
+      border: 1px solid #0f0; /* Hacker green */
+      padding: 8px;
+      text-align: center;
     }
 
-    @keyframes scratch {
-      0% {
-        transform: translateX(-50%) translateY(-50%);
-      }
-      100% {
-        transform: translateX(50%) translateY(50%);
-      }
+    #site-table th {
+      background-color: #000;
     }
 
-    .blood {
-      position: absolute;
-      width: 10px; /* Adjust the size of the blood drops as needed */
-      height: 10px;
-      background-color: red;
-      animation: blood-drop 2s linear infinite;
+    #site-table tbody tr:nth-child(even) {
+      background-color: #060; /* Dark green */
     }
 
-    @keyframes blood-drop {
-      0% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(100vh);
-      }
+    #site-table tbody tr:nth-child(odd) {
+      background-color: #030; /* Darker green */
+    }
+
+    #download-urls-button,
+    #download-all-button {
+      background-color: #0f0; /* Hacker green */
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #download-urls-button:hover,
+    #download-all-button:hover {
+      background-color: #060; /* Darker green */
+    }
+
+    #logo {
+      display: block;
+      margin: 20px auto; /* Center the logo */
+      width: 200px; /* Medium-sized logo */
+      height: auto;
     }
   </style>
 </head>
 <body>
-  <div class="scratch-effect">
-    <div class="scratch"></div>
-    <div class="blood"></div>
-  </div>
+  <img id="logo" src="logo.png" alt="Logo">
+  <h1>Extension Dashboard</h1>
+  <h2>Findings</h2>
+  <div id="url-list"></div>
+  <button id="download-urls-button">Download URLs</button>
+  <button id="download-all-button">Download All Security.txt Files</button>
+  <table id="site-table">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>Download Security.txt</th>
+      </tr>
+    </thead>
+    <tbody id="site-table-body">
+      <!-- Table rows will be dynamically added here -->
+    </tbody>
+  </table>
+  <script src="dashboard.js"></script>
 </body>
 </html>
