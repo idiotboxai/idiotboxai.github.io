@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Junk Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #options-panel {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        #options-panel label,
+        #options-panel select,
+        #options-panel input,
+        #options-panel button {
+            margin-bottom: 10px;
+        }
+
+        #custom-size-container.hidden {
+            display: none;
+        }
+
+        #output {
+            margin-top: 20px;
+            max-width: 600px;
+            margin: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div id="options-panel">
+        <label for="junk-sizes">Select Junk Data Size:</label>
+        <select id="junk-sizes" onchange="updateCustomFieldVisibility()">
+            <option value="8">8 KB</option>
+            <option value="16">16 KB</option>
+            <option value="32">32 KB</option>
+            <option value="64">64 KB</option>
+            <option value="128">128 KB</option>
+            <option value="1024">1024 KB</option>
+            <option value="custom">Custom</option>
+        </select>
+        <div id="custom-size-container" class="hidden">
+            <label for="custom-size">Custom size (bytes):</label>
+            <input type="number" id="custom-size" min="1">
+        </div>
+        <button onclick="insertJunk()">Insert Junk Data</button>
+    </div>
+    <div id="output"></div>
+    <script>
+        function updateCustomFieldVisibility() {
+            const dropdown = document.getElementById('junk-sizes');
+            const customSizeContainer = document.getElementById('custom-size-container');
+            if (dropdown.value === 'custom') {
+                customSizeContainer.classList.remove('hidden');
+            } else {
+                customSizeContainer.classList.add('hidden');
+            }
+        }
+
+        function insertJunk() {
+            const dropdown = document.getElementById('junk-sizes');
+            let sizeKb;
+            if (dropdown.value === 'custom') {
+                const customSize = document.getElementById('custom-size').value;
+                if (!customSize) {
+                    alert('Please enter a valid number for custom size.');
+                    return;
+                }
+                sizeKb = customSize / 1024;
+            } else {
+                sizeKb = dropdown.value;
+            }
+
+            const junkData = '0'.repeat(sizeKb * 1024);
+            const outputDiv = document.getElementById('output');
+            outputDiv.textContent = `Inserted junk data of size: ${sizeKb} KB\n${junkData}`;
+        }
+    </script>
+</body>
+</html>
