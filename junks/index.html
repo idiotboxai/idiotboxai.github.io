@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert Junk Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,8 +35,24 @@
             margin-top: 20px;
             max-width: 600px;
             margin: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+            border: 1px solid #ccc;
+            padding: 10px;
+            position: relative;
+        }
+
+        #output pre {
+            margin: 0;
+        }
+
+        #copy-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -55,7 +73,6 @@
             <input type="number" id="custom-size" min="1">
         </div>
         <button onclick="insertJunk()">Insert Junk Data</button>
-        <button onclick="copyCode()">Copy Code</button>
     </div>
     <div id="output"></div>
     <script>
@@ -85,12 +102,12 @@
 
             const junkData = '0'.repeat(sizeKb * 1024);
             const outputDiv = document.getElementById('output');
-            outputDiv.textContent = `Inserted junk data of size: ${sizeKb} KB\n${junkData}`;
+            outputDiv.innerHTML = `<pre><code id="junk-code" class="plaintext">${junkData}</code></pre><div id="copy-button" onclick="copyCode()">Copy Code</div>`;
+            hljs.highlightElement(document.getElementById('junk-code'));
         }
 
         function copyCode() {
-            const outputDiv = document.getElementById('output');
-            const junkData = outputDiv.textContent;
+            const junkData = document.getElementById('junk-code').innerText;
             const tempInput = document.createElement('textarea');
             tempInput.value = junkData;
             document.body.appendChild(tempInput);
