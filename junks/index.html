@@ -55,6 +55,7 @@
             <input type="number" id="custom-size" min="1">
         </div>
         <button onclick="insertJunk()">Insert Junk Data</button>
+        <button onclick="copyCode()">Copy Code</button>
     </div>
     <div id="output"></div>
     <script>
@@ -85,6 +86,18 @@
             const junkData = '0'.repeat(sizeKb * 1024);
             const outputDiv = document.getElementById('output');
             outputDiv.textContent = `Inserted junk data of size: ${sizeKb} KB\n${junkData}`;
+        }
+
+        function copyCode() {
+            const outputDiv = document.getElementById('output');
+            const junkData = outputDiv.textContent;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = junkData;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Code copied to clipboard!');
         }
     </script>
 </body>
