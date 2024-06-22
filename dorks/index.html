@@ -17,7 +17,7 @@
             margin: 0;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             padding: 30px;
             background-color: #222;
@@ -69,6 +69,9 @@
         #dorksList {
             text-align: left;
             margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 20px; /* Add padding to prevent scrollbar from overlaying content */
         }
         a {
             display: block;
@@ -114,66 +117,37 @@
             }
 
             var dorks = [
-                'intitle:"index of" "*.phtml" site:' + domainExtension,
-                'allintext:wp-includes/rest-api site:' + domainExtension,
-                'inurl:.com index of movies site:' + domainExtension,
-                'intitle:index.of.etc site:' + domainExtension,
-                'intitle:"index of" "*.php" site:' + domainExtension,
-                'intitle:"index of" "*.pl" site:' + domainExtension,
-                'intitle:"index of" "*.phtml" site:' + domainExtension,
-                'inurl:*gov intitle:"index of" "docker-compose" site:' + domainExtension,
-                'intitle:"Index of" site:.in site:' + domainExtension,
-                'intitle:"index of" "stylesheet.css" site:' + domainExtension,
-                'intitle:"index of" "master03.xml" site:' + domainExtension,
-                'intitle:"index of" "pres.xml" site:' + domainExtension,
-                'intext:"powered by BlueCMS v1.6" site:' + domainExtension,
-                'intitle:"index of" "/cgi-bin" "admin" site:' + domainExtension,
-                'intitle: Index of /assets/admin/system site:' + domainExtension,
-                'inurl:/supportboard site:' + domainExtension,
-                'intitle:"index of" "/sql" "admin" site:' + domainExtension,
-                'intext:"powered by mailgust" site:' + domainExtension,
-                'intext:"powered by my little forum" site:' + domainExtension,
-                'intitle:"Control panel" "Control Panel Login" ArticleLive inurl:admin -demo site:' + domainExtension,
-                'inurl:cartwiz/store/index.asp site:' + domainExtension,
-                'inurl:forum_post.php?nt site:' + domainExtension,
-                'intitle:"CJ Link Out V1" site:' + domainExtension,
-                'intitle:"SSHVnc Applet"OR intitle:"SSHTerm Applet" site:' + domainExtension,
-                'inurl:cgi-bin inurl:bigate.cgi site:' + domainExtension,
-                'filetype:pl -intext:"/usr/bin/perl" inurl:webcal (inurl:webcal | inurl:add | inurl:delete | inurl:config) site:' + domainExtension,
-                'filetype:mdb inurl:"news/news" site:' + domainExtension,
-                'inurl:php.exe filetype:exe -example.com site:' + domainExtension,
-                'inurl:updown.php | intext:"Powered by PHP Uploader Downloader" site:' + domainExtension,
-                'inurl:guestbook/guestbooklist.asp "Post Date" From site:' + domainExtension,
-                'inurl:simplenews/admin site:' + domainExtension,
-                'inurl:webcal (inurl:webcal | inurl:add | inurl:delete | inurl:config) site:' + domainExtension,
-                'intitle:"PHPstat" intext:"Browser" intext:"PHPstat setup" site:' + domainExtension,
-                'inurl:changepassword.cgi -cvs site:' + domainExtension,
-                'inurl: WWWADMIN.PL intitle:"wwwadmin" site:' + domainExtension,
-                'inurl:cgi.asx?StoreID site:' + domainExtension,
-                'filetype:lit lit (books|ebooks) site:' + domainExtension,
-                'intitle:gallery inurl:setup "Gallery configuration" site:' + domainExtension,
-                'inurl:plog/register.php site:' + domainExtension,
-                'inurl:robpoll.cgi filetype:cgi site:' + domainExtension,
-                'intitle:"PHP Explorer" ext:php (inurl:phpexplorer.php | inurl:list.php | inurl:browse.php) site:' + domainExtension,
-                'ext:cgi inurl:ubb6_test.cgi site:' + domainExtension,
-                'filetype:wsdl wsdl site:' + domainExtension,
-                'filetype:inc inc intext:setcookie site:' + domainExtension,
-                'filetype:cnf my.cnf -cvs -example site:' + domainExtension,
-                'intitle:"Index of /" modified php.exe site:' + domainExtension
-            ];
+                'intitle:"index of" ("*.phtml" || "*.php" || "*.pl" || "*.phtml") site:*.' + domainExtension,
+                'allintext:wp-includes/rest-api site:*.' + domainExtension + ' || inurl:.com index of movies site:*.' + domainExtension + ' || intitle:index.of.etc site:*.' + domainExtension + ' || intitle:"index of" "*.php" site:*.' + domainExtension,
+                'inurl:*gov intitle:"index of" "docker-compose" site:*.' + domainExtension + ' || intitle:"Index of" site:.in || intitle:"index of" "stylesheet.css" site:*.' + domainExtension + ' || intitle:"index of" "master03.xml" site:*.' + domainExtension,
+                'intitle:"index of" "/cgi-bin" "admin" site:*.' + domainExtension + ' || intitle: Index of /assets/admin/system site:*.' + domainExtension + ' || inurl:/supportboard site:*.' + domainExtension + ' || intitle:"index of" "/sql" "admin" site:*.' + domainExtension,
+                '"index of /" intext:wp-config "zip" site:*.' + domainExtension + ' || intitle:"index of" "schema.sql" site:*.' + domainExtension + ' || "Index of" "upload_image.php" site:*.' + domainExtension + ' || "index of" "Production.json" site:*.' + domainExtension,
+                'index.of.?.frm site:*.' + domainExtension + ' || intitle:"index of" "nrpe.cfg" site:*.' + domainExtension + ' || index of admin/fckeditor/editor/filemanager/ site:*.' + domainExtension + ' || inurl:demo.browse.php intitle:getid3 site:*.' + domainExtension,
+                '-site:simplemachines.org "These are the paths and URLs to your SMF installation" site:*.' + domainExtension + ' || allinurl:forcedownload.php?file= site:*.' + domainExtension + ' || ionCube Loader Wizard information disclosure site:*.' + domainExtension + ' || vBulletin Install Page Detection site:*.' + domainExtension,
+                'inurl:"simplenews/admin" site:*.' + domainExtension + ' || inurl:updown.php | intext:"Powered by PHP Uploader Downloader" site:*.' + domainExtension + ' || inurl:guestbook/guestbooklist.asp "Post Date" From site:*.' + domainExtension + ' || intitle:"CJ Link Out V1" site:*.' + domainExtension,
+                '"powered by mailgust" site:*.' + domainExtension + ' || "powered by my little forum" site:*.' + domainExtension + ' || intitle:"Control panel" "Control Panel Login" ArticleLive inurl:admin -demo site:*.' + domainExtension + ' || inurl:cartwiz/store/index.asp site:*.' + domainExtension,
+                '"e107.org 2002/2003" inurl:forum_post.php?nt site:*.' + domainExtension + ' || "maxwebportal" inurl:"default" "snitz forums" +"homepage" -intitle:maxwebportal site:*.' + domainExtension + ' || "Warning:" "Cannot execute a blank command in" site:*.' + domainExtension + ' || "Mail-it Now!" intitle:"Contact form" | inurl:contact.php site:*.' + domainExtension,
+                '"Powered by Xcomic" site:*.' + domainExtension + ' || "Powered by FunkBoard" site:*.' + domainExtension + ' || "Powered by FlexPHPNews" inurl:news | inurl:press site:*.' + domainExtension + ' || "Powered By: Simplicity oF Upload" inurl:download.php | inurl:upload.php site:*.' + domainExtension,
+                'inurl:nquser.php filetype:php site:*.' + domainExtension + ' || PHPFreeNews inurl:Admin.php site:*.' + domainExtension + ' || "Powered by SilverNews" site:*.' + domainExtension + ' || "Powered by Gravity Board" site:*.' + domainExtension,
+                'filetype:mdb "standard jet" (password | username | user | pass) site:*.' + domainExtension + ' || intitle:"PHPstat" intext:"Browser" intext:"PHPstat setup" site:*.' + domainExtension + ' || intitle:"SSHVnc Applet"OR intitle:"SSHTerm Applet" site:*.' + domainExtension + ' || inurl:cgi-bin inurl:bigate.cgi site:*.' + domainExtension,
+                'filetype:pl -intext:"/usr/bin/perl" inurl:webcal (inurl:webcal | inurl:add | inurl:delete | inurl:config) site:*.' + domainExtension + ' || filetype:mdb inurl:"news/news" site:*.' + domainExtension + ' || inurl:php.exe filetype:exe -example.com site:*.' + domainExtension + ' || "Powered by Land Down Under 601" site:*.' + domainExtension,
+                'ext:asp inurl:DUgallery intitle:"3.0" -site:dugall site:*.' + domainExtension + ' || ext:asp "powered by DUForum" inurl:(messages|details|login|default|register) -site:duware.com site:*.' + domainExtension + ' || filetype:cgi inurl:cachemgr.cgi site:*.' + domainExtension + ' || "powered by YellDL" site:*.' + domainExtension,
+                'inurl:click.php site:*.' + domainExtension + ' || allintitle:lycos.com 360 v1.1 intitle:"sitemap" "details" site:*.' + domainExtension + ' || site: *.' + domainExtension + ' "Index of /docs" "Parent Directory" intitle:"index of/" site:*.' + domainExtension + ' || inurl:"".php" | intext:"Powered by PHP 7.1.1" site:*.' + domainExtension,
+];
+ var dorksList = document.getElementById('dorksList');
+dorksList.innerHTML = '';
 
-            var dorksList = document.getElementById('dorksList');
-            dorksList.innerHTML = '';
-
-            dorks.forEach(function(dork) {
-                var url = 'https://www.google.com/search?q=' + encodeURIComponent(siteUrl + ' ' + dork);
-                var link = document.createElement('a');
-                link.href = url;
-                link.textContent = dork;
-                link.target = '_blank';
-                dorksList.appendChild(link);
-            });
-        }
-    </script>
-</body>
-</html>
+dorks.forEach(function(dorkGroup) {
+    var dorkLine = dorkGroup.split(' || ');
+    var lineContainer = document.createElement('div');
+    lineContainer.style.marginBottom = '10px';
+    dorkLine.forEach(function(dork) {
+        var url = 'https://www.google.com/search?q=' + encodeURIComponent(siteUrl + ' ' + dork);
+        var link = document.createElement('a');
+        link.href = url;
+        link.textContent = dork;
+        link.target = '_blank';
+        lineContainer.appendChild(link);
+    });
+    dorksList.appendChild(lineContainer);
+});
