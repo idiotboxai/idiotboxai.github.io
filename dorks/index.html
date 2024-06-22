@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Dork Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #39ff14;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+            font-size: 18px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #39ff14;
+            color: #222;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #1f9e06;
+        }
+        #dorksList {
+            text-align: left;
+            margin-top: 20px;
+        }
+        a {
+            display: block;
+            padding: 10px;
+            background-color: #333;
+            color: #39ff14;
+            text-decoration: none;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 16px;
+        }
+        a:hover {
+            background-color: #222;
+            color: #1f9e06;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Google Dork Generator</h2>
+        <div class="form-group">
+            <label for="siteUrl">Enter Site URL:</label>
+            <input type="text" id="siteUrl" name="siteUrl" placeholder="Enter site URL">
+        </div>
+        <div class="form-group">
+            <label for="domainExtension">Domain Extension (e.g., .com, .edu, *):</label>
+            <input type="text" id="domainExtension" name="domainExtension" placeholder="Enter domain extension or * for all">
+        </div>
+        <button class="btn" onclick="generateDorks()">Generate Dorks</button>
+        <div id="dorksList"></div>
+    </div>
+
+    <script>
+        function generateDorks() {
+            var siteUrl = document.getElementById('siteUrl').value.trim();
+            var domainExtension = document.getElementById('domainExtension').value.trim();
+
+            if (siteUrl === '') {
+                alert('Please enter a site URL');
+                return;
+            }
+
+            var dorks = [
+                'intitle:"index of" "*.phtml" site:' + domainExtension,
+                'allintext:wp-includes/rest-api site:' + domainExtension,
+                'inurl:.com index of movies site:' + domainExtension,
+                'intitle:index.of.etc site:' + domainExtension,
+                'intitle:"index of" "*.php" site:' + domainExtension,
+                'intitle:"index of" "*.pl" site:' + domainExtension,
+                'intitle:"index of" "*.phtml" site:' + domainExtension,
+                'inurl:*gov intitle:"index of" "docker-compose" site:' + domainExtension,
+                'intitle:"Index of" site:.in site:' + domainExtension,
+                'intitle:"index of" "stylesheet.css" site:' + domainExtension,
+                'intitle:"index of" "master03.xml" site:' + domainExtension,
+                'intitle:"index of" "pres.xml" site:' + domainExtension,
+                'intext:"powered by BlueCMS v1.6" site:' + domainExtension,
+                'intitle:"index of" "/cgi-bin" "admin" site:' + domainExtension,
+                'intitle: Index of /assets/admin/system site:' + domainExtension,
+                'inurl:/supportboard site:' + domainExtension,
+                'intitle:"index of" "/sql" "admin" site:' + domainExtension,
+                'intext:"powered by mailgust" site:' + domainExtension,
+                'intext:"powered by my little forum" site:' + domainExtension,
+                'intitle:"Control panel" "Control Panel Login" ArticleLive inurl:admin -demo site:' + domainExtension,
+                'inurl:cartwiz/store/index.asp site:' + domainExtension,
+                'inurl:forum_post.php?nt site:' + domainExtension,
+                'intitle:"CJ Link Out V1" site:' + domainExtension,
+                'intitle:"SSHVnc Applet"OR intitle:"SSHTerm Applet" site:' + domainExtension,
+                'inurl:cgi-bin inurl:bigate.cgi site:' + domainExtension,
+                'filetype:pl -intext:"/usr/bin/perl" inurl:webcal (inurl:webcal | inurl:add | inurl:delete | inurl:config) site:' + domainExtension,
+                'filetype:mdb inurl:"news/news" site:' + domainExtension,
+                'inurl:php.exe filetype:exe -example.com site:' + domainExtension,
+                'inurl:updown.php | intext:"Powered by PHP Uploader Downloader" site:' + domainExtension,
+                'inurl:guestbook/guestbooklist.asp "Post Date" From site:' + domainExtension,
+                'inurl:simplenews/admin site:' + domainExtension,
+                'inurl:webcal (inurl:webcal | inurl:add | inurl:delete | inurl:config) site:' + domainExtension,
+                'intitle:"PHPstat" intext:"Browser" intext:"PHPstat setup" site:' + domainExtension,
+                'inurl:changepassword.cgi -cvs site:' + domainExtension,
+                'inurl: WWWADMIN.PL intitle:"wwwadmin" site:' + domainExtension,
+                'inurl:cgi.asx?StoreID site:' + domainExtension,
+                'filetype:lit lit (books|ebooks) site:' + domainExtension,
+                'intitle:gallery inurl:setup "Gallery configuration" site:' + domainExtension,
+                'inurl:plog/register.php site:' + domainExtension,
+                'inurl:robpoll.cgi filetype:cgi site:' + domainExtension,
+                'intitle:"PHP Explorer" ext:php (inurl:phpexplorer.php | inurl:list.php | inurl:browse.php) site:' + domainExtension,
+                'ext:cgi inurl:ubb6_test.cgi site:' + domainExtension,
+                'filetype:wsdl wsdl site:' + domainExtension,
+                'filetype:inc inc intext:setcookie site:' + domainExtension,
+                'filetype:cnf my.cnf -cvs -example site:' + domainExtension,
+                'intitle:"Index of /" modified php.exe site:' + domainExtension
+            ];
+
+            var dorksList = document.getElementById('dorksList');
+            dorksList.innerHTML = '';
+
+            dorks.forEach(function(dork) {
+                var url = 'https://www.google.com/search?q=' + encodeURIComponent(siteUrl + ' ' + dork);
+                var link = document.createElement('a');
+                link.href = url;
+                link.textContent = dork;
+                link.target = '_blank';
+                dorksList.appendChild(link);
+            });
+        }
+    </script>
+</body>
+</html>
