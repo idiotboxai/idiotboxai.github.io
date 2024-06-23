@@ -112,14 +112,8 @@
             }
 
             var dorks = [
-                'intitle:"FileCatalyst file transfer solution"',
-                'allintitle:"ITRS OP5 Monitor"',
-                'inurl:"wa.exe?TICKET"',
-                'intext:"Welcome to XAMPP for *" OR intitle:"Welcome to XAMPP" inurl:/dashboard',
-                'intext:apache + mariadb + php + perl intext:"welcome to xampp for *"',
-                'intitle:"welcome to xampp"',
-                '"PMB" AND ("changelog.txt" OR inurl:opac_css)',
-                'allintitle:"Bright Cluster Manager"'
+                'allintitle:"Bright Cluster Manager" site:.edu',
+                'intext:"Welcome to XAMPP for *" intitle:"Welcome to XAMPP" inurl:/dashboard',
             ];
 
             var siteDork = 'site:*.' + siteUrl;
