@@ -95,7 +95,7 @@
     <div class="container">
         <h2>Google Dork Generator</h2>
         <div class="form-group">
-            <label for="siteUrl">Enter Site URL:</label>
+            <label for="siteUrl">Enter Site URL or * for all domains:</label>
             <input type="text" id="siteUrl" name="siteUrl" placeholder="Enter site URL or * for all domains">
         </div>
         <button class="btn" onclick="generateDorks()">Generate Dorks</button>
@@ -105,7 +105,7 @@
     <script>
         function generateDorks() {
             var siteUrl = document.getElementById('siteUrl').value.trim();
-            var siteQuery = siteUrl === '*' ? '' : `site:${siteUrl}`;
+            var siteQuery = siteUrl === '*' ? 'site:*' : `site:${siteUrl}`;
 
             if (siteUrl === '') {
                 alert('Please enter a site URL');
