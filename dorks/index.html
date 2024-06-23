@@ -124,18 +124,21 @@
             ];
 
             var siteDork = 'site:*.' + siteUrl;
-            var concatenatedDorks = dorks.map(dork => `${siteDork} ${dork}`).join(' OR ');
-
             var dorksList = document.getElementById('dorksList');
             dorksList.innerHTML = '';
 
-            var url = 'https://www.google.com/search?q=' + encodeURIComponent(concatenatedDorks);
-            var link = document.createElement('a');
-            link.href = url;
-            link.textContent = concatenatedDorks;
-            link.target = '_blank';
-            
-            dorksList.appendChild(link);
+            for (var i = 0; i < dorks.length; i += 4) {
+                var dorkGroup = dorks.slice(i, i + 4).join(' OR ');
+                var query = `${siteDork} (${dorkGroup})`;
+                var url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+                
+                var link = document.createElement('a');
+                link.href = url;
+                link.textContent = query;
+                link.target = '_blank';
+                
+                dorksList.appendChild(link);
+            }
         }
     </script>
 </body>
