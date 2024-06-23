@@ -71,7 +71,7 @@
             margin-top: 20px;
             max-height: 500px;
             overflow-y: auto;
-            padding-right: 20px; /* Add padding to prevent scrollbar from overlaying content */
+            padding-right: 20px;
         }
         a {
             display: block;
@@ -95,8 +95,8 @@
     <div class="container">
         <h2>Google Dork Generator</h2>
         <div class="form-group">
-            <label for="siteUrl">Enter Site URL or * for all domains:</label>
-            <input type="text" id="siteUrl" name="siteUrl" placeholder="Enter site URL or * for all domains">
+            <label for="siteUrl">Enter Site URL:</label>
+            <input type="text" id="siteUrl" name="siteUrl" placeholder="Enter site URL">
         </div>
         <button class="btn" onclick="generateDorks()">Generate Dorks</button>
         <div id="dorksList"></div>
@@ -105,38 +105,37 @@
     <script>
         function generateDorks() {
             var siteUrl = document.getElementById('siteUrl').value.trim();
-            var siteQuery = siteUrl === '*' ? 'site:*' : `site:${siteUrl}`;
 
             if (siteUrl === '') {
                 alert('Please enter a site URL');
                 return;
             }
 
-           var dorks = [
-    'intitle:"FileCatalyst file transfer solution"',
-    'allintitle:"ITRS OP5 Monitor"',
-    'inurl:"wa.exe?TICKET"',
-    'intext:"Welcome to XAMPP for *" intitle:"Welcome to XAMPP" inurl:/dashboard',
-    'intext:apache + mariadb + php + perl intext:"welcome to xampp for *"',
-    'intitle:"welcome to xampp"',
-    '"PMB" AND ("changelog.txt" OR inurl:opac_css)',
-    'allintitle:"Bright Cluster Manager"'
-];
+            var dorks = [
+                'intitle:"FileCatalyst file transfer solution"',
+                'allintitle:"ITRS OP5 Monitor"',
+                'inurl:"wa.exe?TICKET"',
+                'intext:"Welcome to XAMPP for *" OR intitle:"Welcome to XAMPP" inurl:/dashboard',
+                'intext:apache + mariadb + php + perl intext:"welcome to xampp for *"',
+                'intitle:"welcome to xampp"',
+                '"PMB" AND ("changelog.txt" OR inurl:opac_css)',
+                'allintitle:"Bright Cluster Manager"',
+                'allintitle:"Bright Cluster Manager"'
+            ];
 
+            var siteDork = 'site:*.' + siteUrl;
+            var concatenatedDorks = dorks.map(dork => `${siteDork} ${dork}`).join(' OR ');
 
             var dorksList = document.getElementById('dorksList');
             dorksList.innerHTML = '';
 
-            for (var i = 0; i < dorks.length; i += 4) {
-                var dorkGroup = dorks.slice(i, i + 4).join(' OR ');
-                var query = `${siteQuery} ${dorkGroup}`.trim();
-                var url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-                var link = document.createElement('a');
-                link.href = url;
-                link.textContent = query;
-                link.target = '_blank';
-                dorksList.appendChild(link);
-            }
+            var url = 'https://www.google.com/search?q=' + encodeURIComponent(concatenatedDorks);
+            var link = document.createElement('a');
+            link.href = url;
+            link.textContent = concatenatedDorks;
+            link.target = '_blank';
+            
+            dorksList.appendChild(link);
         }
     </script>
 </body>
