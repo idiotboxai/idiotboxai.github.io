@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Dork Generator</title>
+    <title>Google Dorks for Bug Bounty</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,15 +25,11 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
-        h2 {
+        h1 {
             font-size: 32px;
             margin-bottom: 20px;
             color: #39ff14;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
         }
         label {
             display: block;
@@ -51,7 +47,7 @@
             border-radius: 4px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
-        .btn {
+        button {
             display: inline-block;
             padding: 12px 24px;
             background-color: #39ff14;
@@ -63,10 +59,10 @@
             font-size: 18px;
             transition: background-color 0.3s ease;
         }
-        .btn:hover {
+        button:hover {
             background-color: #1f9e06;
         }
-        #dorksList {
+        #dorkList {
             text-align: left;
             margin-top: 20px;
             max-height: 500px;
@@ -89,50 +85,193 @@
             background-color: #222;
             color: #1f9e06;
         }
+        #tooltip {
+            position: absolute;
+            background-color: black;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            display: none;
+        }
+        /* Custom Dropdown Styles */
+        #categorySelect {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+        #categorySelect:hover {
+            background-color: #444;
+        }
+        #categorySelect:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        #categorySelect option {
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+        #categorySelect option:hover {
+            background-color: #444;
+        }
+        .container {
+            position: relative;
+        }
+        .custom-arrow {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #fff;
+            pointer-events: none;
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.0.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2>Google Dork Generator</h2>
-        <div class="form-group">
-            <label for="siteUrl">Enter Site URL:</label>
-            <input type="text" id="siteUrl" name="siteUrl" placeholder="Enter site URL">
-        </div>
-        <button class="btn" onclick="generateDorks()">Generate Dorks</button>
-        <div id="dorksList"></div>
+        <h1>Google Dorks for Bug Bounty</h1>
+        <label for="domainInput">Enter a domain:</label>
+        <input type="text" id="domainInput" placeholder="example.com" oninput="updateDomain()">
+        <div id="tooltip">Use *domain.com for wildcard</div>
+        <label for="categorySelect">Select category:</label>
+        <select id="categorySelect" onchange="filterDorks()">
+            <option value="all">All Categories</option>
+            <option value="Vulnerable Files">Vulnerable Files</option>
+            <option value="Vulnerable Servers">Vulnerable Servers</option>
+            <option value="Footholds">Footholds</option>
+            <option value="Web Server Detection">Web Server Detection</option>
+            <option value="Sensitive Files">Sensitive Files</option>
+            <option value="Documentation">Documentation</option>
+            <option value="Juicy Info">Juicy Info</option>
+            <option value="Error Messages">Error Messages</option>
+            <option value="Vulnerabilities">Vulnerabilities</option>
+
+        </select>
+        <ul id="dorkList"></ul>
     </div>
-
     <script>
-        function generateDorks() {
-            var siteUrl = document.getElementById('siteUrl').value.trim();
+        const domainInput = document.getElementById('domainInput');
+        const tooltip = document.getElementById('tooltip');
+        const categorySelect = document.getElementById('categorySelect');
+        const dorkList = document.getElementById('dorkList');
 
-            if (siteUrl === '') {
-                alert('Please enter a site URL');
-                return;
-            }
+        domainInput.addEventListener('mouseover', function() {
+            tooltip.style.display = 'block';
+            tooltip.style.left = domainInput.offsetLeft + 'px';
+            tooltip.style.top = (domainInput.offsetTop + domainInput.offsetHeight + 5) + 'px';
+        });
 
-            var dorks = [
-                'allintitle:"Bright Cluster Manager" site:.edu',
-                'intext:"Welcome to XAMPP for *" intitle:"Welcome to XAMPP" inurl:/dashboard',
-            ];
+        domainInput.addEventListener('mouseout', function() {
+            tooltip.style.display = 'none';
+        });
 
-            var siteDork = 'site:*.' + siteUrl;
-            var dorksList = document.getElementById('dorksList');
-            dorksList.innerHTML = '';
+        let originalDorks = [];
 
-            for (var i = 0; i < dorks.length; i += 4) {
-                var dorkGroup = dorks.slice(i, i + 4).join(' OR ');
-                var query = `${siteDork} (${dorkGroup})`;
-                var url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-                
-                var link = document.createElement('a');
-                link.href = url;
-                link.textContent = query;
-                link.target = '_blank';
-                
-                dorksList.appendChild(link);
-            }
+        async function fetchDorks() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/idiotboxai/dorks/main/good.yaml');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        const data = await response.text();
+        console.log(data); // Log the fetched data to the console
+        const dorkObjects = jsyaml.load(data);
+
+        if (!dorkObjects || !dorkObjects.dorks) {
+            throw new Error('Failed to parse YAML data');
+        }
+
+        originalDorks = dorkObjects.dorks;
+
+        updateDorkList();
+    } catch (error) {
+        console.error('Error fetching or parsing YAML:', error);
+    }
+}
+
+
+function updateDorkList() {
+    dorkList.innerHTML = ''; // Clear previous list
+
+    originalDorks.forEach(dorkObj => {
+        const { heading, category, dork } = dorkObj;
+        const updatedDork = replaceSiteParameter(dork, domainInput.value);
+        const listItem = createDorkListItem(updatedDork, heading, category);
+        dorkList.appendChild(listItem);
+    });
+
+    filterDorks(); // Filter based on the current category
+}
+
+
+        function createDorkListItem(dork, heading, category) {
+            const listItem = document.createElement("li");
+
+            if (heading) {
+                const desc = document.createElement("p");
+                desc.textContent = heading;
+                desc.classList.add("description");
+                listItem.appendChild(desc);
+            }
+
+            const googleLink = `https://www.google.com/search?q=${encodeURIComponent(dork)}`;
+            const link = document.createElement("a");
+            link.href = googleLink;
+            link.textContent = dork;
+            link.classList.add("dorkLink");
+            link.target = "_blank";
+
+            listItem.appendChild(link);
+
+            return listItem;
+        }
+        function filterDorks() {
+    const dorkItems = document.querySelectorAll("#dorkList li");
+    const selectedCategory = categorySelect.value.toLowerCase();
+
+    dorkItems.forEach(item => {
+        const category = item.querySelector('.description') ? item.querySelector('.description').textContent.trim().toLowerCase() : '';
+        console.log('Item Category:', category); // Log category for debugging
+        if (selectedCategory === 'all' || category.includes(selectedCategory)) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+
+        function updateDomain() {
+            updateDorkList(); // Refresh the dork list with the new domain
+        }
+
+        function replaceSiteParameter(dork, domain) {
+            // Regex pattern to match site:"example.com" or similar
+            const sitePattern = /site:<domain>/gi;
+
+            // Replace site: parameter with dynamic domain
+            return dork.replace(sitePattern, `site:"${domain}"`);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchDorks();
+        });
+        domainInput.addEventListener('input', updateDomain);
+categorySelect.addEventListener('change', filterDorks);
     </script>
 </body>
 </html>
