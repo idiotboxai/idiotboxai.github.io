@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Planner & Endpoint Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <button id="plannerButton">Planner</button>
+            <button id="trackerButton">Tracker</button>
+            <button id="rssButton">RSS Feed</button>
+        </div>
+        <div class="content">
+            <section id="plannerSection" class="active">
+                <h1>Daily Planner</h1>
+                <div class="article-input">
+                    <input type="text" id="article-title" placeholder="Enter article URL">
+                    <button id="add-article-button">Add Article</button>
+                </div>
+                <div class="article-lists">
+                    <div class="article-list">
+                        <h2>To Read</h2>
+                        <div id="to-read-list"></div>
+                    </div>
+                    <div class="article-list">
+                        <h2>Read</h2>
+                        <div id="read-list"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="trackerSection">
+                <h1>Number of Endpoints Tested Daily Goal Tracker</h1>
+                <div id="counter">0</div>
+                <div class="button">
+                    <button id="add">+1</button>
+                    <button id="subtract">-1</button>
+                    <button id="reset">Reset</button>
+                </div>
+                <div class="goal">
+                    <div>
+                        <label for="goal">Set Daily Goal:</label>
+                        <input type="number" id="goal" min="1" value="100">
+                    </div>
+                    <button id="setGoal">Set</button>
+                </div>
+            </section>
+            <section id="rssSection">
+                <h1>RSS Feed</h1>
+                <div id="feed" class="rss-feed"></div>
+            </section>
+            <section id="dataSection">
+                <h1>Daily Statistics</h1>
+                <div id="daily-stats"></div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
