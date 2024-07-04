@@ -46,12 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     addArticleButton.addEventListener("click", () => {
-        const articleUrl = articleTitleInput.value.trim();
-        if (isValidUrl(articleUrl)) {
-            addArticle(articleUrl);
+        const articleTitle = articleTitleInput.value.trim();
+        if (articleTitle) {
+            addArticle(articleTitle);
             articleTitleInput.value = "";
-        } else {
-            alert("Please enter a valid URL.");
         }
     });
 
@@ -74,16 +72,16 @@ document.addEventListener("DOMContentLoaded", function () {
         goal = parseInt(goalInput.value);
     });
 
-    function addArticle(url) {
+    function addArticle(title) {
         const articleItem = document.createElement("div");
         articleItem.classList.add("article-item");
-        articleItem.innerHTML = `
-            <a href="${url}" target="_blank">${url}</a>
+        articleItem.innerHTML = 
+            <span>${title}</span>
             <div class="icons">
                 <i class="fas fa-check"></i>
                 <i class="fas fa-times"></i>
             </div>
-        `;
+        ;
 
         const checkIcon = articleItem.querySelector(".fa-check");
         const deleteIcon = articleItem.querySelector(".fa-times");
@@ -138,20 +136,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Function to validate URL format including parameters
-    function isValidUrl(url) {
-        try {
-            new URL(url);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }
-
     // Function to retrieve cookie value by name
     function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
+        const value = ; ${document.cookie};
+        const parts = value.split(; ${name}=);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
@@ -161,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function fetchTechCrunchRSS() {
     const rssUrl = 'https://sploitus.com/rss';
-    fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&api_key=mvpclu8kolhbws0xcamfhotmbd0xmnbvrqbcrgzq&count=1000')
+    fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl))
         .then(response => response.json())
         .then(data => {
             const items = data.items;
@@ -178,11 +166,11 @@ function fetchTechCrunchRSS() {
             items.slice(0, 5).forEach(item => {
                 const article = document.createElement('div');
                 article.classList.add('feed-article');
-                article.innerHTML = `
+                article.innerHTML = 
                     <h3>${item.title}</h3>
                     <p>${item.pubDate}</p>
                     <a href="${item.link}" class="read-more" target="_blank">Read more</a>
-                `;
+                ;
                 feedContainer.appendChild(article);
             });
         })
