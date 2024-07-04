@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchTechCrunchRSS() {
-    const rssUrl = 'https://techcrunch.com/feed/';
+    const rssUrl = 'https://sploitus.com/rss';
     fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl))
         .then(response => response.json())
         .then(data => {
