@@ -46,10 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     addArticleButton.addEventListener("click", () => {
-        const articleTitle = articleTitleInput.value.trim();
-        if (articleTitle) {
-            addArticle(articleTitle);
+        const articleUrl = articleTitleInput.value.trim();
+        if (isValidUrl(articleUrl)) {
+            addArticle(articleUrl);
             articleTitleInput.value = "";
+        } else {
+            alert("Please enter a valid URL.");
         }
     });
 
@@ -72,11 +74,11 @@ document.addEventListener("DOMContentLoaded", function () {
         goal = parseInt(goalInput.value);
     });
 
-    function addArticle(title) {
+    function addArticle(url) {
         const articleItem = document.createElement("div");
         articleItem.classList.add("article-item");
         articleItem.innerHTML = `
-            <span>${title}</span>
+            <a href="${url}" target="_blank">${url}</a>
             <div class="icons">
                 <i class="fas fa-check"></i>
                 <i class="fas fa-times"></i>
@@ -136,6 +138,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Function to validate URL format including parameters
+    function isValidUrl(url) {
+        try {
+            new URL(url);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
     // Function to retrieve cookie value by name
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -149,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function fetchTechCrunchRSS() {
     const rssUrl = 'https://sploitus.com/rss';
-    fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl))
+    fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&api_key=mvpclu8kolhbws0xcamfhotmbd0xmnbvrqbcrgzq&count=1000')
         .then(response => response.json())
         .then(data => {
             const items = data.items;
