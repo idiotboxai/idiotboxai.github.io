@@ -381,3 +381,51 @@ h2, h3 {
   text-align: center;
   z-index: 1000;
 }
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .user-info {
+    position: static;
+    margin-bottom: 20px;
+  }
+
+  .lists-container {
+    flex-direction: column;
+  }
+
+  .list-box {
+    margin-bottom: 20px;
+  }
+
+  .stats-container {
+    flex-direction: column;
+  }
+
+  .stat {
+    margin-bottom: 10px;
+  }
+
+  input[type="text"], textarea, button {
+    font-size: 16px; /* Prevents zoom on focus in iOS */
+  }
+
+  .streak-calendar {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
